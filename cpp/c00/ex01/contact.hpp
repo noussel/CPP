@@ -2,16 +2,19 @@
 #define CONTACT_HPP
 #include <string>
 
+int isNumber(std::string s);
 class contact {
     private:
-        std::string first_name;
-        std::string last_name;
-        std::string nick_name;
-        std::string phone_number;
+        std::string FirstName;
+        std::string LastName;
+        std::string NickName;
+        std::string PhoneNumber;
         std::string DarkestSecret;
     public:
-        void setinfo();
-        void displayshort(int index) const;
-        void displayfull() const;
+        void setinfo(std::string FN, std::string LN, std::string NN, std::string PN, std::string DS);
+        void displayshort(int index);
+        void displayfull();
 };
+
+
 #endif

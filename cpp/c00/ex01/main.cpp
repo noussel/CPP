@@ -1,6 +1,9 @@
 #include "phonebook.hpp"
+#include "contact.hpp"
 #include <cctype>
 #include <iostream>
+
+
 
 int notValide(std::string commande)
 {
@@ -9,26 +12,19 @@ int notValide(std::string commande)
     return 0;
 }
 
-int isNumber(std::string s)
-{
-    for(int i = 0; s[i]; i++)
-    {
-        if(!std::isdigit(s[i]))
-            return(0);
-    }
-    return(1);
-}
+
 
 int main()
 {
     std::string commande;
     phonebook pb;
-    pb.total = 0;
+    // pb.total = 0;
     std::cout << "___PHONEBOOK___" << std::endl;
     while(1)
     {
         std::cout << "PhoneBook : ";
-        std::getline(std::cin, commande);
+        if(!std::getline(std::cin, commande))
+            break;
         if(notValide(commande))
         {
             std::cout << "Please insert a valide commande !\n";
@@ -39,13 +35,21 @@ int main()
             pb.add_contact();
         if(commande == "SEARCH")
         {
+            if (pb.get_total() == 0)
+            {
+                std::cout << "No contacts to display." << std::endl;
+                continue;
+            }
             pb.displayShortAll();
             std::cout << "Insert the index : ";
             getline(std::cin, commande);
-            if(!isNumber(commande))
+            if(commande.empty())
+            {
+                std::cout << "Invalid index." << std::endl;
+                continue;
+            }
+            else if(!isNumber(commande))
                 std::cout << "Invalide number ! \n";
-            else if (std::stoi(commande) > 9)
-                std::cout << "Number is out of bounds ! \n";
             else 
                 pb.display_full_contact(std::stoi(commande));
         }
