@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-NAME = ex02
-SRC = main.cpp Base.cpp
+NAME = ex00
+SRC = main.cpp
 OBJ = $(SRC:%.cpp=%.o)
 
 all: $(NAME)

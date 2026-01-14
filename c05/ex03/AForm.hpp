@@ -6,6 +6,9 @@
 
 
 
+
+// class Bureaucrat ;
+
 class AForm {
     private :
         std::string const name;
