@@ -50,7 +50,11 @@ const char *Form::GradeTooLowException::what()const throw(){
     return("Form throw => Grade too Low\n");
 }
 
-Form::Form(Form const &other) : name(other.name), signGrade(other.getSignGrade()), execGrade(other.getExecGrade()){
+Form::Form(Form const &other) 
+        : name(other.name), 
+        signGrade(other.getSignGrade()), 
+        execGrade(other.getExecGrade())
+        {
     Signed = other.getSign();
 }
 

@@ -5,15 +5,10 @@
 #include "Bureaucrat.hpp"
 
 
-
-
-
-class Bureaucrat ;
-
 class Form {
     private :
         std::string const name;
-        bool Signed;//0
+        bool Signed;
         int const signGrade;
         const int execGrade;
     public :
