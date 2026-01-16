@@ -20,9 +20,9 @@ int main(){
         boss.signForm(Robot);
         boss.signForm(presedent);
 
-        jim.signForm(shrub);//grade too low
-        jim.signForm(Robot);//grade too low
-        jim.signForm(presedent);//grade too low
+        jim.signForm(shrub);
+        jim.signForm(Robot);
+        jim.signForm(presedent);
 
         boss.executeForm(shrub);
         boss.executeForm(Robot);

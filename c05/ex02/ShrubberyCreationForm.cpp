@@ -1,7 +1,5 @@
 #include "ShrubberyCreationForm.hpp"
 
-
-
 const char *FileException::what() const throw(){
     return("fealed to create file .\n");
 }

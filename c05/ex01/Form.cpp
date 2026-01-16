@@ -1,10 +1,9 @@
 
 #include "Form.hpp"
 
+Form::Form() : name("default") ,Signed(false), signGrade(150), execGrade(150){
 
-
-
-
+}
 
 Form::Form(std::string const &name, int sgrade, int egrade) : name(name), signGrade(sgrade), execGrade(egrade){
     if(sgrade > 150 || egrade > 150)
@@ -63,8 +62,8 @@ Form::~Form(){
 }
 
 std::ostream &operator<<(std::ostream &out, Form &f){
-    out << "Form name: " << f.getName() << ", is Signed= " 
-        << f.getSign() << ", sign grade= " << f.getSignGrade() 
-        << ", execution grade= " << f.getExecGrade() << std::endl;
+    out << "Form name: " << f.getName() << ", Signed = " 
+        << f.getSign() << ", sign grade = " << f.getSignGrade() 
+        << ", execution grade = " << f.getExecGrade() << std::endl;
     return(out);
 }

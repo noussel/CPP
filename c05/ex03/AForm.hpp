@@ -7,7 +7,6 @@
 
 
 
-// class Bureaucrat ;
 
 class AForm {
     private :
@@ -37,7 +36,7 @@ class AForm {
             const char *what()const throw();//noexcept
         };
         void execute(Bureaucrat const &executor) const;
-        virtual ~AForm();//virtual
+        virtual ~AForm();//
 };
 
 

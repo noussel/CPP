@@ -1,5 +1,6 @@
 #include "RobotomyRequestForm.hpp"
-
+#include <cstdlib>
+#include <ctime>
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 145, 137), target(target){
 
@@ -19,10 +20,10 @@ void RobotomyRequestForm::executeAction(Bureaucrat const &executor) const
 {
     (void) executor;
 
-    std::cout << "noiiiiiiiiiiiiiiisy sound... 🔧🤖" << std::endl;
+    std::cout << "noiiiiiiiiiiiiiiisy sound..." << std::endl;
 
-
-    if (target.length())
+    std::srand(std::time(NULL));
+    if(std::rand() % 2 == 0)
     {
         std::cout << target << " has been robotomized successfully" << std::endl;
     }

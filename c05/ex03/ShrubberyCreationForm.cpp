@@ -38,7 +38,7 @@ void ShrubberyCreationForm::executeAction(Bureaucrat const &executor) const{
         file << "\n";
         file.close();
         std::ifstream in(fileName.c_str());
-        std::cout << in.rdbuf();
+        std::cout << in.rdbuf();//pointter to the file buffer
         in.close();
     }
     catch(std::exception &e){

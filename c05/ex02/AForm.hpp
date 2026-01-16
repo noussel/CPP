@@ -14,7 +14,7 @@ class AForm {
         const int execGrade;
     protected :
         void executeCheck(Bureaucrat const &executor) const ;
-        virtual void executeAction(Bureaucrat const &executor) const = 0;
+        virtual void executeAction(Bureaucrat const &executor) const = 0;//pour qu'on peus pas creer un objet
     public :
         AForm(std::string const &name, int sgrade, int egrade);
         AForm(AForm const &other);
@@ -33,7 +33,7 @@ class AForm {
         class FormNotSignedException : public std::exception{
             const char *what()const throw();//noexcept
         };
-        void execute(Bureaucrat const &executor) const;
+        void execute(Bureaucrat const &executor) const;//pour ne pas recrire la verification
         virtual ~AForm();//virtual
 };
 

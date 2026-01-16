@@ -87,7 +87,7 @@ static TYPE detectType(std::string &s){
 
 static double toDouble(std::string &arg, TYPE type){
     if(type == IS_CHAR)
-        return static_cast<double>(arg[0]);//just trying std::atof(literal)
+        return static_cast<double>(arg[0]);
     if(type == IS_INT)
         return static_cast<double>(strtod(arg.c_str(), NULL));
     if(type == IS_FLOAT || type == IS_DOUBLE)
@@ -151,7 +151,7 @@ void coutInvalid(TYPE type){
 
 void ScalarConverter::convert(std::string arg){
     TYPE type = detectType(arg);
-    double value;////////////////111111111111111111111111111111111111
+    double value;
     value = toDouble(arg, type);
 
     coutInvalid(type);
