@@ -1,11 +1,11 @@
 #include "Intern.hpp"
 
 
-Intern::Intern(){};
+Intern::Intern(){}
 
 Intern::Intern(Intern &other){
     (void) other;
-};
+}
 
 Intern &Intern::operator=(Intern &other){
     (void) other;

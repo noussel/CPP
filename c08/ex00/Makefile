@@ -1,9 +1,9 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-NAME = ex02
-SRC = main.cpp 
+NAME = ex00
+SRC = main.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADER = Array.hpp
+HEADER = file.hpp
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER)

@@ -15,7 +15,6 @@ class AForm {
         int const signGrade;
         const int execGrade;
     protected :
-        void executeCheck(Bureaucrat const &executor) const ;
         virtual void executeAction(Bureaucrat const &executor) const = 0;
     public :
         AForm(std::string const &name, int sgrade, int egrade);

@@ -18,11 +18,7 @@ AForm &AForm::operator=(AForm &other) {
 
 std::ostream &operator<<(std::ostream &out, AForm &toPrint);
 
-void AForm::execute(Bureaucrat const &executor) const{
-    executeCheck(executor);
-}
-
-void AForm::executeCheck(Bureaucrat const &executor) const {
+void AForm::execute(Bureaucrat const &executor) const {
     if (!this->Signed)
         throw FormNotSignedException();
     else if(executor.getGrade() > this->execGrade)

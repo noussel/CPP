@@ -1,6 +1,6 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-NAME = ex00
+NAME = ex01
 SRC = main.cpp iter.cpp
 OBJ = $(SRC:%.cpp=%.o)
 
