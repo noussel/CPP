@@ -1,14 +1,9 @@
-#include "file.hpp"
-
-
-#include <iostream>
-#include <vector>
-#include <list>
 #include "easyfind.hpp"
+
 
 int main()
 {
-    // ===== Test avec vector =====
+    // Test avec vector
     std::vector<int> v;
     v.push_back(1);
     v.push_back(2);
@@ -34,7 +29,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    // ===== Test avec list =====
+    // Test avec list
     std::list<int> l;
     l.push_back(10);
     l.push_back(20);
@@ -47,7 +42,7 @@ int main()
     }
     catch (const std::exception &e)
     {
-        std::cout <<  << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     try
@@ -57,7 +52,7 @@ int main()
     }
     catch (const std::exception &e)
     {
-        std::cout <<  << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     return 0;

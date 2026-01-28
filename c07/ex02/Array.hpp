@@ -9,8 +9,8 @@ class Array
         T *ptr;
         int n;
     public :
-        Array(); //empty array;
-        Array(int lenght);//array of n elements;
+        Array(); 
+        Array(int lenght);
         Array(Array &other);
         Array &operator=(Array &other);
         T &operator[](int i);
@@ -20,7 +20,7 @@ class Array
 template <typename T> 
 Array<T>::Array(){
     n = 0;
-    ptr = NULL;//[]
+    ptr = NULL;
 }
 
 template <typename T> 

@@ -2,6 +2,6 @@
 
 
 int main(){
-    int array[] = {1,2,3,4,5};
+    const char array[] = {100,29,39,49,59};
     iter(array, 5, display);
 }

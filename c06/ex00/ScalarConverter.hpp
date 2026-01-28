@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdlib>   // atoi, strtod
-#include <climits>    // numeric_limits
-#include <cmath>     // isnan, isinf (plus tard)
+#include <climits>    
+#include <cmath>     
 #include <cfloat>
 
 #include <iostream>

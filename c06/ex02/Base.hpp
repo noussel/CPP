@@ -1,17 +1,15 @@
 #pragma once
 #include <iostream>
 #include <cstdlib>   // rand, srand
-#include <ctime>     // time
+#include <ctime>
 
 
 class Base{
     public :
-        virtual ~Base();//reasons
+        virtual ~Base();
 };
 
 
 Base *generate(void);
 void identify(Base* p);
 void identify(Base& p);
-
-

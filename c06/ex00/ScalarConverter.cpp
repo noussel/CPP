@@ -117,7 +117,7 @@ void coutInt(double value, TYPE type){
         std::cout << "int : " << i << "\n";
 }
 
-bool NonFractinal(std::string &arg){
+bool fractinal(std::string &arg){
     unsigned int l = arg.length();
     if(arg[l-1] == 'f' && arg[l-2] == '0' && arg[l-3] == '.')
         return true;
@@ -130,7 +130,7 @@ void coutFloat(double value, TYPE type, std::string &arg){
     float f = static_cast<float>(value);
     if(value > FLT_MAX || value < -FLT_MAX)
         std::cout << "float : " << (value > 0 ? "+inff\n" : "-inff\n");
-    else if(type == IS_INT || type == IS_CHAR || NonFractinal(arg))
+    else if(type == IS_INT || type == IS_CHAR || fractinal(arg))
         std::cout << "float : " << f << ".0f\n";
     else
         std::cout << "float : " << f << "f\n";
@@ -138,7 +138,7 @@ void coutFloat(double value, TYPE type, std::string &arg){
 
 void coutDouble(double value, TYPE type, std::string &arg){
     double d = static_cast<double>(value);
-    if(type == IS_INT || type == IS_CHAR || NonFractinal(arg))
+    if(type == IS_INT || type == IS_CHAR || fractinal(arg))
         std::cout << "double : " << d << ".0\n";
     else
         std::cout << "double : " << d << "\n";

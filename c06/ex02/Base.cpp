@@ -5,13 +5,11 @@
 
 Base *generate(){
     static bool started = false;
-
     if(!started)
     {
         std::srand(std::time(NULL));
         started = true;
     }
-
     int r = rand() % 3;
     if(r == 0)
         return new A();
@@ -38,9 +36,8 @@ void identify(Base *p){
 }
 
 void identify(Base &p){
-    
     try{
-        A& a = static_cast<A&>(p);
+        A& a = dynamic_cast<A&>(p);
         (void)a;
         std::cout << "pointer type is : A\n";
     }

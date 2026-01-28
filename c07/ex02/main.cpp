@@ -7,10 +7,11 @@
 //         Array<int> a(3);
 //         Array<float> f(5);
 //         Array<std::string> s(5);
+//         Array<double> d;
 
 //         std::cout << a[2] << "\n";
 //         std::cout << f[2] << "\n";
-//         std::cout << s[0] << "\n";
+//         std::cout << s[2] << "\n";
 
 //         a[0] = 10;
 //         a[1] = 20;

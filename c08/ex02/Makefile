@@ -1,9 +1,9 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-NAME = ex00
+NAME = ex02
 SRC = main.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADER = whatever.hpp
+HEADER = MutantStack.hpp
 
 all: $(NAME)
 

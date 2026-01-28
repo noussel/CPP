@@ -3,7 +3,8 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 NAME = ex00
 SRC = main.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADER = file.hpp
+HEADER = easyfind.hpp
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER)

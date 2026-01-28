@@ -9,13 +9,13 @@ int main()
 
     data.content = "salam"; 
 
-    std::cout << "Adresse originale : " << &data << std::endl;
+    // std::cout << "Adresse originale : " << &data << std::endl;
 
-    uintptr_t entier = Serializer::serialize(&data);
-    std::cout << "Valeur serialisée : " << entier << std::endl;
+    uintptr_t u = Serializer::serialize(&data);
+    // std::cout << "Valeur serialisée : " << u << std::endl;
 
-    Data* ptr = Serializer::deserialize(entier);
-    std::cout << "Adresse désérialisée : " << ptr << std::endl;
+    Data* ptr = Serializer::deserialize(u);
+    // std::cout << "Adresse désérialisée : " << ptr << std::endl;
 
     if (ptr == &data)
         std::cout << "Succès : mêmes adresses" << std::endl;

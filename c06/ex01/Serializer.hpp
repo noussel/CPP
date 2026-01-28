@@ -5,7 +5,7 @@
 
 class Serializer{
     private :
-        Serializer();// Non instanciable 
+        Serializer();
         Serializer(Serializer &other);
     
     public :
