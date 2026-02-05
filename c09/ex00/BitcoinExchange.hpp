@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <algoritms>
+#include <algorithm>
 #include <fstream>
 #include <utility>
 
@@ -27,19 +27,25 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange &other){
     if(this == &other)
         return *this;
     archiffe = other.archiffe;
+    return *this;
 }
 
 BitcoinExchange::fillMap(std::string DB){
-    std::ifstream dataBase(DB.c_str);
+    std::ifstream dataBase(DB.c_str());
     if(!dataBase){
         throw "file can't be opened\n";
     }
     std::string line;
+    std::string date;
+    double rate;
     getline(dataBase, line);
-    while(std::getline(dataBase, line)){
+    while(std::getline(dataBase, line)){//yyy-mm-dd,rate
         size_t pos = line.find(",");
-
-        archiffe.insert(std::pair(substr(pos), rate));
-    }
+        if (pos == std::string::npos)
+            continue;
+        date = line.substr(0, pos);
+        rate = std::strtod(line.substr(pos + 1));
+        archiffe[date] = rate;
+    } 
 
 }
