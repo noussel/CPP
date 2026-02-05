@@ -13,7 +13,7 @@ class BitcoinExchange{
         BitcoinExchange &operator=(BitcoinExchange &other);
         void fillMap(std::string DB);
         void valideLigne(std::string ligne);
-        float getRate(std::map<std::string, float> archiffe);
+        float getRate(std::string &date);
         void analyse(std::string input);//lire valider calculer afficher 
         ~BitcoinExchange();
 };
@@ -37,14 +37,14 @@ BitcoinExchange::fillMap(std::string DB){
     }
     std::string line;
     std::string date;
-    double rate;
+    float rate;
     getline(dataBase, line);
     while(std::getline(dataBase, line)){//yyy-mm-dd,rate
         size_t pos = line.find(",");
         if (pos == std::string::npos)
             continue;
         date = line.substr(0, pos);
-        rate = std::strtod(line.substr(pos + 1));
+        rate = std::atof(line.substr(pos + 1).c_str);
         archiffe[date] = rate;
     } 
 
