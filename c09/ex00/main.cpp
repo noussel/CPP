@@ -1,14 +1,14 @@
 #include "BitcoinExchange.hpp"
 
-int main(int ac, char av[][]){
+int main(int ac, char **av){
     try {
-        if(ac != 1)
+        if(ac != 2)
             throw "INVALIDE IMPUT\n";
         BitcoinExchange btc;
-        btc.fillMap("dataBase");
-        btc.analyse(av[1][0]);
+        btc.fillMap("data.csv");
+        btc.analyse(av[1]);
     }
-    catch(str Error){
-        std::cerr << Error;
+    catch(char const *ErrorType){
+        std::cerr << ErrorType;
     }    
 }

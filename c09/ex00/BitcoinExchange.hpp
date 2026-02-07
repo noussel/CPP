@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <fstream>
 #include <utility>
+#include <map>
+#include <sstream>
+
 
 class BitcoinExchange{
 
@@ -19,6 +22,7 @@ class BitcoinExchange{
         bool valideDate();
         bool valideValue();
         float getRate(std::string &date);//récupérer le bon taux depuis la map & gérer le cas “date inexistante”
+        void calculateResult();
         void displayLine();//date => value = result
 
     public :
@@ -36,31 +40,31 @@ float BitcoinExchange::getRate(str &date){
     std::map<str, float>::iterator it;
     it = archiffe.lower_bound(date);//key
     
+    if(it->first == date)
+        return it->second;
     if(it == archiffe.begin()){
         std::cerr << "Error : no earlier date\n";
         return -1;
     }
-    if(it->first == date)
-        return it->second;
     --it;//if it == end or it between to dates we took the earlier (avant)
     return it->second;
 }
 
-float BitcoinExchange::calculateResult(){
+void BitcoinExchange::calculateResult(){
     str date = line.substr(0, line.find('|') - 1);/// ??
-    str valueStr = line.substr(linefind('|') + 2);
+    str valueStr = line.substr(line.find('|') + 2);
 
-    float value = std::atoi(valueStr.c_str());
+    float value = std::atof(valueStr.c_str());
     float rate = getRate(date);
+    // std::cout << "------------> " << rate ;
 
     if(rate != -1)
-        float result = value * rate;
-    outLine << result;
+        outLine << (rate * value);
 }
 
 void BitcoinExchange::displayLine(){
-
-    std::cout << outLine << std::endl;
+    calculateResult();
+    std::cout << outLine.str() << std::endl;
 }
 
 bool BitcoinExchange::valideFormat()
@@ -94,7 +98,7 @@ bool BitcoinExchange::valideDate()
     int month = std::atoi(date.substr(5, 2).c_str());
     int day   = std::atoi(date.substr(8, 2).c_str());
 
-    if (month < 1 || month > 12 || day < 1 || day > 31)
+    if (year > 2026 || month < 1 || month > 12 || day < 1 || day > 31)
     {
         std::cout << "Error: bad date => " << date << std::endl;
         return false;
@@ -175,7 +179,7 @@ void BitcoinExchange::analyse(str input){
     std::getline(userdata, line);
 
     while(std::getline(userdata, line)){
-        if(!(valideLine()))//will out if not valide 
+        if(!valideLine())//will out if not valide 
             continue;
         displayLine();
     }

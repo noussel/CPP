@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 NAME = btc
 SRC = main.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADER = easyfind.hpp
+HEADER = BitcoinExchange.hpp
 
 all: $(NAME)
 
