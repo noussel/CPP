@@ -9,19 +9,17 @@ class BitcoinExchange{
     private :
         std::map<std::string, float> archiffe;
 
-
     protected :
         typedef typename std::string str;
         str line;
-        str outLine;
+        std::ostringstream outLine;//date => value = result
 
-        bool valideLine(std::string line);//print mssg   présence de |  position correcte  pas une line vide  date & value valide  
-        bool valideFormat(const std::string &line);
-        bool valideDate(const std::string &line);
-        bool valideValue(const std::string &line);
+        bool valideLine();//print mssg   présence de |  position correcte  pas une line vide  date & value valide  
+        bool valideFormat();
+        bool valideDate();
+        bool valideValue();
         float getRate(std::string &date);//récupérer le bon taux depuis la map & gérer le cas “date inexistante”
-        void outLine(std::string line);//date => value = result
-
+        void displayLine();//date => value = result
 
     public :
         BitcoinExchange();
@@ -34,7 +32,38 @@ class BitcoinExchange{
 
 };
 
-bool BitcoinExchange::valideFormat(const std::string &line)
+float BitcoinExchange::getRate(str &date){
+    std::map<str, float>::iterator it;
+    it = archiffe.lower_bound(date);//key
+    
+    if(it == archiffe.begin()){
+        std::cerr << "Error : no earlier date\n";
+        return -1;
+    }
+    if(it->first == date)
+        return it->second;
+    --it;//if it == end or it between to dates we took the earlier (avant)
+    return it->second;
+}
+
+float BitcoinExchange::calculateResult(){
+    str date = line.substr(0, line.find('|') - 1);/// ??
+    str valueStr = line.substr(linefind('|') + 2);
+
+    float value = std::atoi(valueStr.c_str());
+    float rate = getRate(date);
+
+    if(rate != -1)
+        float result = value * rate;
+    outLine << result;
+}
+
+void BitcoinExchange::displayLine(){
+
+    std::cout << outLine << std::endl;
+}
+
+bool BitcoinExchange::valideFormat()
 {
     size_t pos = line.find('|');
 
@@ -51,9 +80,9 @@ bool BitcoinExchange::valideFormat(const std::string &line)
     return true;
 }
 
-bool BitcoinExchange::valideDate(const std::string &line)
+bool BitcoinExchange::valideDate()
 {
-    std::string date = line.substr(0, line.find('|'));
+    std::string date = line.substr(0, line.find('|'));//find return size_t
 
     if (date.length() != 11 || date[4] != '-' || date[7] != '-')
     {
@@ -70,13 +99,14 @@ bool BitcoinExchange::valideDate(const std::string &line)
         std::cout << "Error: bad date => " << date << std::endl;
         return false;
     }
+    outLine << date << "=> ";
     return true;
 }
 
-bool BitcoinExchange::valideValue(const std::string &line)
+bool BitcoinExchange::valideValue()
 {
     std::string valueStr = line.substr(line.find('|') + 2);//to skep space after "|" " 42"
-    double value = std::atof(valueStr.c_str());
+    float value = std::atof(valueStr.c_str());
 
     if (value < 0)
     {
@@ -85,23 +115,23 @@ bool BitcoinExchange::valideValue(const std::string &line)
     }
     if (value > 1000)
     {
-        std::cout << "Error: too large a number." << std::endl;
+        std::cout << "Error: too large number." << std::endl;
         return false;
     }
+    outLine << value << " = ";
     return true;
 }
-
 
 bool BitcoinExchange::valideLine(){
     if(line.empty()){
         std::cout << "Error : empty line \n";
         return false;
     }
-    if (!valideFormat(line))
+    if (!valideFormat())
         return false;
-    if (!valideDate(line))
+    if (!valideDate())
         return false;
-    if (!valideValue(line))
+    if (!valideValue())
         return false;
     return true;
 }
@@ -141,11 +171,12 @@ void BitcoinExchange::analyse(str input){
     std::ifstream userdata(input.c_str());
     if(!userdata)
         throw "User file can not be opened\n";
-    str out;
+
     std::getline(userdata, line);
+
     while(std::getline(userdata, line)){
         if(!(valideLine()))//will out if not valide 
             continue;
-        outLine();
+        displayLine();
     }
 }
