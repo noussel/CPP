@@ -1,9 +1,9 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 NAME = RPN
-SRC = main.cpp
+SRC = main.cpp RPN.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADER = BitcoinExchange.hpp
+HEADER = RPN.hpp
 
 all: $(NAME)
 

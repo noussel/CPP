@@ -3,7 +3,7 @@
 int main(int ac, char **av){
     try{
         if(ac != 2)
-            throw run_time_error("invalide input\n");
+            throw std::runtime_error("invalide number of argements\n");
         RPN rpn;
         rpn.calculater(av[1]);        
     }
