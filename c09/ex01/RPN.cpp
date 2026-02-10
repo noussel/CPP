@@ -58,5 +58,4 @@ void RPN::calculater(char *elements){
     if (container.size() != 1)
         throw std::runtime_error("Error : Invalide Elemets \n");
     std::cout << container.top() << std::endl;
-
 }
