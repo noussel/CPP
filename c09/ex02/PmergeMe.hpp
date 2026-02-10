@@ -2,13 +2,15 @@
 #include <iostream>
 #include <vecter>
 
-class  FordJohnson{
+template <typename T>
+class  PmergeMe{
     private :
-        std::vecter<int> vect;
-        std:deque<int> deq;
+        T container;
     public :
-        FordJohnson();
-        FordJohnson(FordJohnson &other);
-        FordJohnson &operator=(FordJohnson &other);
-        ~FordJohnson();
+        PmergeMe();
+        PmergeMe(PmergeMe &other);
+        PmergeMe &operator=(PmergeMe &other);
+        void fill<T>();//check for duplication (usint std::set)& fill out the container 
+        void FordJohnson<T>();//sorting algorithme -> create paires -> put max and min -> sort max values -> put min using binary search
+        ~PmergeMe();
 }
