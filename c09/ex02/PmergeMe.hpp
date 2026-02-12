@@ -3,6 +3,10 @@
 #include <vector>
 #include <deque>
 #include <set>
+#include <climits>
+#include <cstdlib>
+#include <cctype>
+#include <algorithm>
 
 
 class  PmergeMe{
@@ -24,15 +28,23 @@ class  PmergeMe{
 
 void PmergeMe::parseInput(char **av){
     std::set<int> s;
-    // Créer un std::set<int> seen;
+    for(int i = 1; av[i]; i++){
+        for(int j = 0; av[i][j]; j++){
+            if(!isdigit(av[i][j]))
+                throw std::runtime_error("Error : Invalide element\n");
+        }
+        long n = std::atol(av[i]);
 
-    // Pour chaque argument :
-    // 1. Vérifier que c’est un nombre valide
-    // 2. Convertir en int
-    // 3. Vérifier overflow / négatif
-    // 4. Essayer seen.insert(n)
-    //    - si false → Error (doublon)
-    // 5. Ajouter n dans vec
-    // 6. Ajouter n dans deq
+        if(n > INT_MAX || n < 0)
+            throw std::runtime_error("Error : Invalide number\n");
+        if(!s.insert(n).second)//insert return un paire first = iteratur, second = bool
+            throw std::runtime_error("Error : Duplicated number\n");
+        vec.push_back(n);
+        deq.push_back(n);
+    }
+}
+
+template <typename container>
+void PmergeMe::FordJohnson(container &c){
 
 }
