@@ -46,5 +46,26 @@ void PmergeMe::parseInput(char **av){
 
 template <typename container>
 void PmergeMe::FordJohnson(container &c){
+    //creation des paires
+    //declaration de 2 containers de type con un pour max et un pour min
+    container maxlist;
+    container minlist;
+    int leftover;
+    bool hasleftover;
+    for(int i = 0; i < c.size() - 1; i += 2){
+        if(c[i] < c[i+1])
+        {
+            maxlist.push_back(c[i+1]);
+            minlist.push_back(c[i]);
+        }
+        else
+        {
+            maxlist.push_back(c[i+1]);
+            minlist.push_back(c[i]);
+        }
+    }
+    if(c.size() % 2 != 0){
+        leftover = c[c.size()-1];
+    }
 
 }
