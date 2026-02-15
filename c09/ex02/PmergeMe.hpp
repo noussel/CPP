@@ -50,8 +50,8 @@ void PmergeMe::FordJohnson(container &c){
     //declaration de 2 containers de type con un pour max et un pour min
     container maxlist;
     container minlist;
-    int leftover;
-    bool hasleftover;
+    container sortedlist;
+
     for(int i = 0; i < c.size() - 1; i += 2){
         if(c[i] < c[i+1])
         {
@@ -65,7 +65,32 @@ void PmergeMe::FordJohnson(container &c){
         }
     }
     if(c.size() % 2 != 0){
-        leftover = c[c.size()-1];
+        minlist.push_back([c.size()-1]);
     }
 
+    FordJohnson(maxlist);
+
+    //binarry insert with jacobsthal order
+    std::vector<size_t> jacOrder = jacobsthal(minlist.size());
+    sortedlist = binnarySearch(maxlist, minlist, jacOrder)
+    c = sortedlist;
+}
+
+std::vector &jacobsthal(size_t minSize){
+    std::vector<size_t> finalOrder;
+    std::vector<size_t> jaco;
+
+    //initialiser les 2 premier elemnets de la suite
+    jaco.push_back(1);
+    jaco.push_back(3);
+
+    while(jaco.back() < minSize)//si back = 43 et min size = 40 l'ordre va stope a 21
+    {
+    size_t next = jaco[jaco.size() - 1] + 2 * jaco[jaco.size() - 2];
+    jaco.push_back(next);
+    }
+
+    size_t prev = 1;
+    finalOrder.push_back(0);
+    for(size_t i = 1; )
 }
