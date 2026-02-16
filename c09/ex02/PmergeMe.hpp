@@ -10,7 +10,7 @@
 
 
 class  PmergeMe{
-    private :
+    public :
         std::vector<int> vec;
         std::deque<int>  deq;
 
@@ -25,6 +25,22 @@ class  PmergeMe{
         template <typename container> 
         void FordJohnson(container &c);//sorting algorithme -> create paires -> put max and min -> sort max values -> put min using binary search
 };
+
+
+template <typename container>
+void binnarySearch(container &mainlist, int value){
+    size_t left = 0;
+    size_t right = mainlist.size();
+    while(left < right){
+        size_t mid = (left + right) / 2;
+        if( value > mainlist[mid])
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    typename container::iterator pos = mainlist.begin() + left;
+    mainlist.insert(pos , value);
+}
 
 template <typename container>
 void PmergeMe::FordJohnson(container &c){
@@ -47,7 +63,7 @@ void PmergeMe::FordJohnson(container &c){
         }
     }
     if(c.size() % 2 != 0){
-        minlist.push_back([c.size()-1]);
+        minlist.push_back(c.size()-1);
     }
 
     FordJohnson(maxlist);
@@ -62,18 +78,4 @@ void PmergeMe::FordJohnson(container &c){
 
 std::vector<size_t> jacobsthal(size_t minSize);
 
-template <typename container>
-void binnarySearch(container &mainlist, int value){
-    size_t left = 0;
-    size_t right = mainlist.size();
-    while(left < right){
-        size_t mid = (left + right) / 2;
-        if( value > mainlist[mid])
-            left = mid + 1;
-        else
-            right = mid;
-    }
-    typename Container::iterator pos = mainlist.begin() + left;
-    mainlist.insert(pos , value);
-}
 

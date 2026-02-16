@@ -1,6 +1,6 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
-NAME = RPN
+NAME = PmergeMe
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:%.cpp=%.o)
 HEADER = PmergeMe.hpp
