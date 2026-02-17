@@ -10,7 +10,7 @@
 
 
 class  PmergeMe{
-    public :
+    private :
         std::vector<int> vec;
         std::deque<int>  deq;
 
@@ -20,12 +20,15 @@ class  PmergeMe{
         PmergeMe &operator=(const PmergeMe &other);
         ~PmergeMe();
 
+        std::vector<int> &getVect();
+        std::deque<int> &getDeq();
         void parseInput(char **av);//check for duplication (usint std::set)& fill out the container 
 
         template <typename container> 
         void FordJohnson(container &c);//sorting algorithme -> create paires -> put max and min -> sort max values -> put min using binary search
 };
 
+std::ostream &operator<<(std::ostream &out, PmergeMe &p);
 
 template <typename container>
 void binnarySearch(container &mainlist, int value){
@@ -42,6 +45,8 @@ void binnarySearch(container &mainlist, int value){
     mainlist.insert(pos , value);
 }
 
+std::vector<size_t> jacobsthal(size_t minSize);
+
 template <typename container>
 void PmergeMe::FordJohnson(container &c){
     //creation des paires
@@ -50,7 +55,9 @@ void PmergeMe::FordJohnson(container &c){
     container minlist;
     container sortedlist;
 
-    for(int i = 0; i < c.size() - 1; i += 2){
+    if(c.size() <= 1)
+        return ;
+    for(size_t i = 0; i < c.size() - 1; i += 2){
         if(c[i] < c[i+1])
         {
             maxlist.push_back(c[i+1]);
@@ -58,16 +65,16 @@ void PmergeMe::FordJohnson(container &c){
         }
         else
         {
-            maxlist.push_back(c[i+1]);
-            minlist.push_back(c[i]);
+            minlist.push_back(c[i+1]);
+            maxlist.push_back(c[i]);
         }
     }
     if(c.size() % 2 != 0){
-        minlist.push_back(c.size()-1);
+        minlist.push_back(c[c.size()-1]);
     }
 
     FordJohnson(maxlist);
-
+    sortedlist = maxlist;
     //binarry insert with jacobsthal order
     std::vector<size_t> jacOrder = jacobsthal(minlist.size());
 
@@ -75,7 +82,3 @@ void PmergeMe::FordJohnson(container &c){
         binnarySearch(sortedlist, minlist[jacOrder[i]]);
     c = sortedlist;
 }
-
-std::vector<size_t> jacobsthal(size_t minSize);
-
-

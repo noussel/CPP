@@ -16,6 +16,26 @@ PmergeMe::PmergeMe(const PmergeMe &other){
     *this = other;
 }
 
+std::vector<int> &PmergeMe::getVect(){
+    return vec;
+}
+
+std::deque<int> &PmergeMe::getDeq(){
+    return deq;
+}
+
+std::ostream &operator<<(std::ostream &out, PmergeMe &p){
+    for(size_t i = 0; i < p.getVect().size(); i++){
+        out << p.getVect()[i] << " ";
+    }
+    out << std::endl;
+
+    for(size_t i = 0; i < p.getDeq().size(); i++){
+        out << p.getDeq()[i] << " ";
+    }
+    return out;
+}
+
 void PmergeMe::parseInput(char **av){
     std::set<int> s;
     for(int i = 1; av[i]; i++){
@@ -59,12 +79,17 @@ std::vector<size_t> jacobsthal(size_t minSize){
     size_t prev = 1;
     for(size_t i = 1; i < jaco.size(); i++){
 
-        size_t curr = jaco[i];
-        for(size_t j = std::min(curr, minSize); j > prev; j--)
+        size_t curr = std::min(jaco[i], minSize);
+        for(size_t j = curr; j > prev; j--)
             finalOrder.push_back(j - 1);
 
         prev = curr;
         
     }
+    std::cout << "final order : ";
+    for(size_t i = 0; i < finalOrder.size(); i++){
+        std::cout << finalOrder[i] << "  ";
+    }
+    std::cout << "\n";
     return finalOrder;
 }
