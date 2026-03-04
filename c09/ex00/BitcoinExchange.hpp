@@ -10,10 +10,10 @@
 class BitcoinExchange{
 
     private :
-        std::map<std::string, float> archiffe;
+        std::map<std::string, float> archive;
 
     protected :
-        typedef typename std::string str;
+        typedef std::string str;
         str line;
         std::ostringstream outLine;//date => value = result
 
@@ -21,6 +21,7 @@ class BitcoinExchange{
         bool valideFormat();
         bool valideDate();
         bool valideValue();
+        bool isNumber(str date);
         float getRate(std::string &date);//récupérer le bon taux depuis la map & gérer le cas “date inexistante”
         void calculateResult();
         void displayLine();//date => value = result
@@ -31,7 +32,7 @@ class BitcoinExchange{
         BitcoinExchange &operator=(BitcoinExchange &other);
         ~BitcoinExchange();
 
-        void fillMap(std::string DB);
+        void fillArchive(std::string DB);
         void analyse(std::string input);//lire valider calculer afficher 
 
 };

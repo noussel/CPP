@@ -8,30 +8,34 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange &other){
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange &other){
     if(this == &other)
         return *this;
-    archiffe = other.archiffe;
+    archive = other.archive;
     return *this;
 }
 
 float BitcoinExchange::getRate(str &date){
     std::map<str, float>::iterator it;
-    it = archiffe.lower_bound(date);//key
-    if (it == archiffe.end())//for no sgv it->first
+    it = archive.lower_bound(date);//key
+    if(archive.empty())
+    {
+        std::cerr << "Error : empty data base \n";
+    }
+    if (it == archive.end())
     {
         --it;
         return it->second;
     }
     if(it->first == date)
         return it->second;
-    if(it == archiffe.begin()){
+    if(it == archive.begin()){
         std::cerr << "Error : no earlier date\n";
         return -1;
     }
-    --it;//if it == end or it between to dates we took the earlier (avant)
+    --it;
     return it->second;
 }
 
 void BitcoinExchange::calculateResult(){
-    str date = line.substr(0, line.find('|' - 1));/// ??
+    str date = line.substr(0, line.find('|') - 1);
     str valueStr = line.substr(line.find('|') + 2);
 
     float value = std::atof(valueStr.c_str());
@@ -42,7 +46,6 @@ void BitcoinExchange::calculateResult(){
 }
 
 void BitcoinExchange::displayLine(){
-    // std::cout << "wach";
     std::cout << outLine.str() << std::endl;
     outLine.str("");
     outLine.clear();
@@ -54,29 +57,38 @@ bool BitcoinExchange::valideFormat()
 
     if (pos == std::string::npos || pos != 11 || line[pos - 1] != ' ' || line[pos + 1] != ' ')
     {
-        std::cout << "Error: bad format => " << line << std::endl;
+        std::cout << "Error: bad line format => " << line << std::endl;
         return false;
+    }
+    return true;
+}
+
+bool BitcoinExchange::isNumber(str date){
+    for(int i = 0; date[i]; i++){
+        if(!isdigit(date[i]) && date[i] != '-')
+            return false;
     }
     return true;
 }
 
 bool BitcoinExchange::valideDate()
 {
-    std::string date = line.substr(0, line.find('|'));//find return size_t
+    str date = line.substr(0, line.find('|') -1);
 
-    if (date.length() != 11 || date[4] != '-' || date[7] != '-')
+    if (date.length() != 10 || date[4] != '-' || date[7] != '-' || !isNumber(date))
     {
-        std::cout << "Error: bad date => " << date << std::endl;
+        std::cout << "Error: bad date Format => " << date << std::endl;
         return false;
     }
 
     int year  = std::atoi(date.substr(0, 4).c_str());
+    // std::cout << "--------------> " << year << "\n";
     int month = std::atoi(date.substr(5, 2).c_str());
     int day   = std::atoi(date.substr(8, 2).c_str());
 
     if (year > 2026 || month < 1 || month > 12 || day < 1 || day > 31)
     {
-        std::cout << "Error: bad date => " << date << std::endl;
+        std::cout << "Error: bad date numbers => " << date << std::endl;
         return false;
     }
     // outLine << date << " => ";
@@ -85,7 +97,7 @@ bool BitcoinExchange::valideDate()
 
 bool BitcoinExchange::valideValue()
 {
-    std::string valueStr = line.substr(line.find('|') + 2);//to skep space after "|" " 42"
+    std::string valueStr = line.substr(line.find('|') + 2);
     float value = std::atof(valueStr.c_str());
 
     if (value < 0)
@@ -116,13 +128,13 @@ bool BitcoinExchange::valideLine(){
     return true;
 }
 
-void BitcoinExchange::fillMap(str DB){
+void BitcoinExchange::fillArchive(str DB){
     std::ifstream dataBase(DB.c_str());
     if(!dataBase){
-        throw "file can't be opened\n";
+        throw "Error : File can not be opened\n";
     }
     str date;
-    str line;
+    // str line;
     float rate;
     getline(dataBase, line);
     while(std::getline(dataBase, line)){//yyy-mm-dd,rate
@@ -131,15 +143,16 @@ void BitcoinExchange::fillMap(str DB){
             continue;
         date = line.substr(0, pos);
         rate = std::atof(line.substr(pos + 1).c_str());
-        archiffe[date] = rate;
+        archive[date] = rate;
     }
+    line = "";
 }
 
 void BitcoinExchange::analyse(str input){
     std::ifstream userdata(input.c_str());
     if(!userdata)
-        throw "User file can not be opened\n";
-
+        throw "Error : User file can not be opened\n";
+    // str line;
     std::getline(userdata, line);
 
     while(std::getline(userdata, line)){

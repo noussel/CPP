@@ -5,7 +5,7 @@ int main(int ac, char **av){
         if(ac != 2)
             throw "INVALIDE IMPUT\n";
         BitcoinExchange btc;
-        btc.fillMap("data.csv");
+        btc.fillArchive("data.csv");
         btc.analyse(av[1]);
     }
     catch(char const *ErrorType){
